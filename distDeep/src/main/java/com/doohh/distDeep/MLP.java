@@ -120,8 +120,8 @@ public class MLP {
 
     }
 
-    public static void main(String[] args) {
-        test_mlp();
-    }
+//    public static void main(String[] args) {
+//        test_mlp();
+//    }
 }
 
