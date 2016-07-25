@@ -1,20 +1,22 @@
 package com.doohh.distDeep;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.doohh.distDeep.layer.HiddenLayer;
 
-public class MLP {
-    public int N;
+public class MLPmultiHidden {
+	public int N;
     public int n_in;
-    public int n_hidden;
+    public ArrayList<Integer> n_hidden;
     public int n_out;
-    public HiddenLayer hiddenLayer;
+    public HiddenLayer hiddenLayer1;
+    public HiddenLayer hiddenLayer2;
     public LogisticRegression logisticLayer;
     public Random rng;
 
 
-    public MLP(int N, int n_in, int n_hidden, int n_out, Random rng) {
+    public MLPmultiHidden(int N, int n_in, ArrayList<Integer> n_hidden, int n_out, Random rng) {
 
         this.N = N;
         this.n_in = n_in;
@@ -25,40 +27,48 @@ public class MLP {
         this.rng = rng;
 
         // construct hiddenLayer
-        this.hiddenLayer = new HiddenLayer(N, n_in, n_hidden, null, null, rng, "tanh");
-
+        
+        this.hiddenLayer1 = new HiddenLayer(N, n_in, 3, null, null, rng, "tanh");
+        this.hiddenLayer2 = new HiddenLayer(N, 3, 3, null, null, rng, "tanh");
+        
         // construct logisticLayer
-        this.logisticLayer = new LogisticRegression(N, n_hidden, n_out);
+        this.logisticLayer = new LogisticRegression(N, 3, n_out);
     }
 
 
     public void train(double[][] train_X, int[][] train_Y, double lr) {
-        double[] hidden_layer_input;
+    	double[] layer_input;
+    	double[] hidden_layer_input;
         double[] logistic_layer_input;
         double[] dy;
 
         for(int n=0; n<N; n++) {
-            hidden_layer_input = new double[n_in];
-            logistic_layer_input = new double[n_hidden];
+        	layer_input = new double[2];
+            hidden_layer_input = new double[3];
+            logistic_layer_input = new double[3];
 
-            for(int j=0; j<n_in; j++) hidden_layer_input[j] = train_X[n][j];
+            for(int j=0; j<n_in; j++) layer_input[j] = train_X[n][j];
 
             // forward hiddenLayer
-            hiddenLayer.forward(hidden_layer_input, logistic_layer_input);
+            hiddenLayer1.forward(layer_input, hidden_layer_input);
+            hiddenLayer2.forward(hidden_layer_input, logistic_layer_input);
 
             // forward and backward logisticLayer
             // dy = new double[n_out];  // define delta of y for backpropagation
             dy = logisticLayer.train(logistic_layer_input, train_Y[n], lr); //, dy);
 
             // backward hiddenLayer
-            hiddenLayer.backward(hidden_layer_input, null, logistic_layer_input, dy, logisticLayer.W, lr);
+            hiddenLayer2.backward(hidden_layer_input, null, logistic_layer_input, dy, logisticLayer.W, lr);
+            hiddenLayer1.backward(layer_input, null, hidden_layer_input, dy, logisticLayer.W, lr);
 
         }
     }
 
     public void predict(double[] x, double[] y) {
-        double[] logistic_layer_input = new double[n_hidden];
-        hiddenLayer.forward(x, logistic_layer_input);
+    	double[] hidden_layer_input = new double[3];
+        double[] logistic_layer_input = new double[3];
+        hiddenLayer1.forward(x, hidden_layer_input);
+        hiddenLayer2.forward(hidden_layer_input, logistic_layer_input);
         logisticLayer.predict(logistic_layer_input, y);
     }
 
@@ -73,7 +83,9 @@ public class MLP {
         int train_N = 4;
         int test_N = 4;
         int n_in = 2;
-        int n_hidden = 3;
+        ArrayList<Integer> n_hidden = new ArrayList();
+        n_hidden.add(3);
+        n_hidden.add(3);
         int n_out = 2;
 
         double[][] train_X = {
@@ -84,15 +96,14 @@ public class MLP {
         };
 
         int[][] train_Y = {
+                {1, 0},
                 {0, 1},
-                {1, 0},
-                {1, 0},
+                {0, 1},
                 {0, 1},
         };
-        
 
         // construct MLP
-        MLP classifier = new MLP(train_N, n_in, n_hidden, n_out, rng);
+        MLPmultiHidden classifier = new MLPmultiHidden(train_N, n_in, n_hidden, n_out, rng);
 
         // train
         for(int epoch=0; epoch<n_epochs; epoch++) {
@@ -125,4 +136,3 @@ public class MLP {
         test_mlp();
     }
 }
-

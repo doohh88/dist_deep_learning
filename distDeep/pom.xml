@@ -21,5 +21,16 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+    	<groupId>org.nd4j</groupId>
+    	<artifactId>nd4j-native-platform</artifactId>
+    	<version>0.4.0</version>
+    </dependency>
+    <dependency>
+    	<groupId>org.bytedeco</groupId>
+    	<artifactId>javacpp</artifactId>
+    	<version>1.2.2</version>
+    	<type>maven-plugin</type>
+    </dependency>
   </dependencies>
 </project>

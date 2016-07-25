@@ -11,7 +11,7 @@ import com.doohh.distDeep.activation.Sigmoid;
 import com.doohh.distDeep.activation.Tanh;
 import com.doohh.distDeep.utils.Utils;
 
-public class HiddenLayer {
+public class HiddenLayer implements ILayer{
     public int N;
     public int n_in;
     public int n_out;

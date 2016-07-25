@@ -131,8 +131,8 @@ public class LogisticRegression
         }        
 	}
 	
-//    public static void main( String[] args )
-//    {
-//        test_lr();    	
-//    }
+    public static void main( String[] args )
+    {
+        test_lr();    	
+    }
 }
