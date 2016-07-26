@@ -13,32 +13,111 @@ public class MetricOperationExample {
 		public static void main(String[] args) {
 			log.info("start");
 			
-			try{
-	            System.out.println("Trying to load: "+"libopenblas");
-	            System.loadLibrary("libopenblas");
-	        }catch (Throwable e){
-	            System.out.println("Failed: "+e.getMessage());
-	            return;
-	        }
-	        System.out.println("Success");
+//			try{
+//	            System.out.println("Trying to load: "+"libopenblas");
+//	            System.loadLibrary("libopenblas");
+//	        }catch (Throwable e){
+//	            System.out.println("Failed: "+e.getMessage());
+//	            return;
+//	        }
+//	        System.out.println("Success");
 			
-	        INDArray nd = Nd4j.create(new float[]{1, 2, 3, 4}, new int[]{2, 2});
-	        INDArray nd3 = Nd4j.create(new float[]{5,6,7,8},new int[]{2,2});
-	        INDArray ndv;
-	        log.info("start");
+//	        INDArray nd = Nd4j.create(new float[]{1, 2, 3, 4}, new int[]{2, 2});
+//	        INDArray nd3 = Nd4j.create(new float[]{5,6,7,8},new int[]{2,2});
+//	        INDArray ndv;
+//	        log.info("start");
+//	        
+//	        //INDArray nd = Nd4j.ones(new int[]{2, 3});
+//	        INDArray b = Nd4j.create(new float[]{1, 2}, new int[]{1, 2});
+//	        System.out.println("nd");	        
+//	        System.out.println(nd);
+//	        System.out.println("b");
+//	        System.out.println(b);
+//	        //INDArray rst = nd.addRowVector(b);
+//	        INDArray rst = nd.muli(2).divi(4);
+//	        System.out.println("rst");
+//	        System.out.println(rst);
+	       
+			
+	        float[][] mat1 = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 	        
-	        //INDArray nd = Nd4j.ones(new int[]{2, 3});
-	        INDArray b = Nd4j.create(new float[]{1, 2}, new int[]{1, 2});
-	        System.out.println("nd");	        
-	        System.out.println(nd);
-	        System.out.println("b");
-	        System.out.println(b);
-	        INDArray rst = nd.addRowVector(b);
-	        System.out.println("rst");
-	        System.out.println(rst);
-	        
-	        
+	        float[][] mat2 = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
 
+	        float[][] rst = new float[10][10];
+	        int i , j;    
+	        
+	        
+	        long startTime = System.nanoTime();
+	        for (i = 0; i < 10; i++) { // aRow
+	            for (j = 0; j < 10; j++) { // bColumn
+	                for (int k = 0; k < 10; k++) { // aColumn
+	                    rst[i][j] += mat1[i][k] * mat2[k][j];
+	                }
+	            }
+	        }	
+	    	long endTime   = System.nanoTime();
+	    	long totalTime = endTime - startTime;
+	    	System.out.println(totalTime);
+	        
+//	        for(i=0;i<10;i++){
+//	        	System.out.println();
+//	            for(j=0;j<10;j++)
+//	                System.out.print(rst[i][j] + " ");
+//	        }
+	        INDArray ndmat1;
+	        
+	        ndmat1 = Nd4j.create(new float[][] {
+	        	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        		});
+	        
+	        INDArray ndmat2 = Nd4j.create(new float[][] {
+	        	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
+        		});
+	        
+	        startTime = System.nanoTime();
+	        ndmat1.mmul(ndmat2);
+	        endTime   = System.nanoTime();
+	    	totalTime = endTime - startTime;
+	    	System.out.println(totalTime);
+	    	
+	        //System.out.println(ndmat1.mmul(ndmat2));
+	        
 //	        ndv = nd.transpose(); // the two and the three switch - a simple transpose
 //	        System.out.println("ndv");
 //	        System.out.println(ndv);
