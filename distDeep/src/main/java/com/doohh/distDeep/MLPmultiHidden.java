@@ -1,4 +1,4 @@
-package com.doohh.distDeep;
+/*package com.doohh.distDeep;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -136,3 +136,4 @@ public class MLPmultiHidden {
         test_mlp();
     }
 }
+*/
