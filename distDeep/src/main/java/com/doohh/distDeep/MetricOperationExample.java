@@ -38,81 +38,47 @@ public class MetricOperationExample {
 //	        System.out.println("rst");
 //	        System.out.println(rst);
 	       
+			int size = 1000;
 			
-	        float[][] mat1 = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-	        
-	        float[][] mat2 = {{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-	        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}};
-
-	        float[][] rst = new float[10][10];
+	        float[][] mat1 = new float[size][size];	        
+	        float[][] mat2 = new float[size][size];
+	        float[][] rst = new float[size][size];
 	        int i , j;    
 	        
+	        for(i = 0; i < size; i++){
+	        	for(j = 0;j < size; j++){
+	        		mat1[i][j] = j+1;
+	        		mat2[i][j] = j+1;
+	        	}
+	        }
 	        
-	        long startTime = System.nanoTime();
-	        for (i = 0; i < 10; i++) { // aRow
-	            for (j = 0; j < 10; j++) { // bColumn
-	                for (int k = 0; k < 10; k++) { // aColumn
+	        
+	        long startTime = System.currentTimeMillis();
+	        for (i = 0; i < size; i++) { // aRow
+	            for (j = 0; j < size; j++) { // bColumn
+	                for (int k = 0; k < size; k++) { // aColumn
 	                    rst[i][j] += mat1[i][k] * mat2[k][j];
 	                }
 	            }
 	        }	
-	    	long endTime   = System.nanoTime();
+	    	long endTime   = System.currentTimeMillis();
 	    	long totalTime = endTime - startTime;
 	    	System.out.println(totalTime);
 	        
-//	        for(i=0;i<10;i++){
+//	        for(i=0;i<size;i++){
 //	        	System.out.println();
-//	            for(j=0;j<10;j++)
+//	            for(j=0;j<size;j++)
 //	                System.out.print(rst[i][j] + " ");
 //	        }
-	        INDArray ndmat1;
+	        INDArray ndmat1 = Nd4j.create(mat1);
+	        //System.out.println(ndmat1);
+	        INDArray ndmat2 = Nd4j.create(mat2);
+	        //ndmat2.setOrder('f');
+	        //System.out.println(ndmat2);
 	        
-	        ndmat1 = Nd4j.create(new float[][] {
-	        	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-        		});
-	        
-	        INDArray ndmat2 = Nd4j.create(new float[][] {
-	        	{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-        		{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
-        		});
-	        
-	        startTime = System.nanoTime();
+	        startTime = System.currentTimeMillis();
 	        ndmat1.mmul(ndmat2);
-	        endTime   = System.nanoTime();
+	        endTime   = System.currentTimeMillis();
 	    	totalTime = endTime - startTime;
 	    	System.out.println(totalTime);
 	    	

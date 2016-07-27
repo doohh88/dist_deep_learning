@@ -46,11 +46,11 @@
 			<artifactId>logback-classic</artifactId>
 			<version>1.1.7</version>
 		</dependency>
-<!-- 		<dependency>
+ 		<dependency>
 			<groupId>com.github.fommil.netlib</groupId>
 			<artifactId>netlib-native_system-win-x86_64</artifactId>
 			<version>1.1</version>
 			<type>dll</type>
-		</dependency> -->
+		</dependency>
 	</dependencies>
 </project>
