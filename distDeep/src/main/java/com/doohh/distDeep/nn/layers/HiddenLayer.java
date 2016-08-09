@@ -1,4 +1,4 @@
-package com.doohh.distDeep.layer;
+package com.doohh.distDeep.nn.layers;
 
 import java.util.Random;
 
@@ -9,7 +9,8 @@ import com.doohh.distDeep.activation.IActivation;
 import com.doohh.distDeep.activation.ReLU;
 import com.doohh.distDeep.activation.Sigmoid;
 import com.doohh.distDeep.activation.Tanh;
-import com.doohh.distDeep.utils.Utils;
+import com.doohh.distDeep.nn.api.ILayer;
+import com.doohh.distDeep.util.Utils;
 
 public class HiddenLayer implements ILayer{
     public int N;

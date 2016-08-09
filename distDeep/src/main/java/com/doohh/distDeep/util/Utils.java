@@ -1,4 +1,4 @@
-package com.doohh.distDeep.utils;
+package com.doohh.distDeep.util;
 
 import java.util.Random;
 
