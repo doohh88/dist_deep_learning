@@ -52,5 +52,10 @@
 			<version>1.1</version>
 			<type>dll</type>
 		</dependency>
+ 		<dependency>
+ 			<groupId>org.projectlombok</groupId>
+ 			<artifactId>lombok</artifactId>
+ 			<version>1.16.10</version>
+ 		</dependency>
 	</dependencies>
 </project>

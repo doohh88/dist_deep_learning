@@ -1,18 +1,13 @@
-package com.doohh.distDeep.nn.layers;
+/*package com.doohh.distDeep.nn.layers;
 
 import java.util.Random;
 
-import com.doohh.distDeep.activation.DiscreteReLU;
-import com.doohh.distDeep.activation.DiscreteSigmoid;
-import com.doohh.distDeep.activation.DiscreteTanh;
-import com.doohh.distDeep.activation.IActivation;
-import com.doohh.distDeep.activation.ReLU;
-import com.doohh.distDeep.activation.Sigmoid;
-import com.doohh.distDeep.activation.Tanh;
-import com.doohh.distDeep.nn.api.ILayer;
+import org.apache.commons.math3.analysis.function.Sigmoid;
+import org.apache.commons.math3.analysis.function.Tanh;
+
 import com.doohh.distDeep.util.Utils;
 
-public class HiddenLayer implements ILayer{
+public class HiddenLayer {
     public int N;
     public int n_in;
     public int n_out;
@@ -112,3 +107,4 @@ public class HiddenLayer implements ILayer{
     }
 }
 
+*/
