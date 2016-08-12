@@ -1,4 +1,4 @@
-package com.doohh.distDeep.nn.layers;
+package com.doohh.distDeep.nn.conf;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -8,17 +8,17 @@ import lombok.ToString;
 @Data @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public abstract class FeedforwardLayer extends Layer {
+public abstract class FeedforwardLayerConf extends LayerConf {
 	protected int nIn;
 	protected int nOut;
 	
-	public FeedforwardLayer(Builder builder) {
+	public FeedforwardLayerConf(Builder builder) {
 		super(builder);
     	this.nIn = builder.nIn;
     	this.nOut = builder.nOut;		
 	}
 	
-	public abstract static class Builder<T extends Builder<T>> extends Layer.Builder<T> {
+	public abstract static class Builder<T extends Builder<T>> extends LayerConf.Builder<T> {
         protected int nIn = 0;
         protected int nOut = 0;
         
