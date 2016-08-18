@@ -2,7 +2,7 @@ package com.doohh.distDeep.nn.api;
 
 import org.nd4j.linalg.api.ndarray.INDArray;
 
-import com.doohh.distDeep.nn.conf.NeuralNetConf;
+import com.doohh.distDeep.nn.conf.NetConf;
 
 public interface Model {
 	void fit();
@@ -12,8 +12,8 @@ public interface Model {
 	void setParams(INDArray params);
 	void fit(INDArray data);
 	int batchSize();
-	NeuralNetConf conf();
-	void setConf(NeuralNetConf conf);
+	NetConf conf();
+	void setConf(NetConf conf);
 	INDArray input();
 	void initParams();
 	void clear();

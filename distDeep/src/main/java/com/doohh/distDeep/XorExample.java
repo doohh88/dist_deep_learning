@@ -1,7 +1,7 @@
 package com.doohh.distDeep;
 
 import com.doohh.distDeep.nn.conf.DenseLayerConf;
-import com.doohh.distDeep.nn.conf.NeuralNetConf;
+import com.doohh.distDeep.nn.conf.NetConf;
 import com.doohh.distDeep.weights.WeightInit;
 
 public class XorExample {
@@ -40,18 +40,6 @@ public class XorExample {
 //		
 //		DataSet ds = new DataSet(input, labels);
 //		System.out.println(ds);
-		
-		
-		NeuralNetConf.Builder builder = new NeuralNetConf.Builder();
-		builder.iterations(10000);
-		builder.learningRate(0.1);
-		
-		DenseLayerConf.Builder hiddenLayerBuilder = new DenseLayerConf.Builder();
-		hiddenLayerBuilder.nIn(2);
-		hiddenLayerBuilder.nOut(4);
-		hiddenLayerBuilder.activation("sigmoid");
-		hiddenLayerBuilder.weightInit(WeightInit.UNIFORM);
-		
 		
 		
 	}

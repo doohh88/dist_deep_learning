@@ -1,8 +1,5 @@
 package com.doohh.distDeep.nn.conf;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.doohh.distDeep.weights.WeightInit;
 
 import lombok.Data;
@@ -16,6 +13,9 @@ public class LayerConf {
     protected double biasInit;
     protected double learningRate;
     protected double biasLearningRate;
+    protected double dropOut;
+    protected Updater updater;
+
     
     public LayerConf(Builder builder) {
         this.layerName = builder.layerName;
@@ -24,6 +24,8 @@ public class LayerConf {
         this.biasInit = builder.biasInit;
         this.learningRate = builder.learningRate;
         this.biasLearningRate = builder.biasLearningRate;
+        this.dropOut = builder.dropOut;
+
     }
     
     @Data
@@ -34,7 +36,9 @@ public class LayerConf {
         protected double biasInit = Double.NaN;
         protected double learningRate = Double.NaN;
         protected double biasLearningRate = Double.NaN;
-          
+        protected double dropOut = Double.NaN;
+        protected Updater updater = null;
+
           public T name(String layerName){
         	  this.layerName = layerName;
         	  return (T) this;
@@ -59,7 +63,15 @@ public class LayerConf {
               this.biasLearningRate = biasLearningRate;
               return (T)this;
           }
+          public T dropOut(double dropOut) {
+              this.dropOut = dropOut;
+              return (T) this;
+          }
           
+          public T updater(Updater updater){
+              this.updater = updater;
+              return (T) this;
+          }
           public abstract <E extends LayerConf> E build();
     }
 }

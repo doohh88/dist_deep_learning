@@ -3,43 +3,41 @@ package com.doohh.distDeep.nn.conf;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.doohh.distDeep.weights.WeightInit;
+import org.nd4j.linalg.factory.Nd4j;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data @NoArgsConstructor
+@Data
+@NoArgsConstructor
 public class NeuralNetConf {
-	protected List<LayerConf> confs; 
-	protected int iterations;
-	protected double learningRate;
-	
+	protected List<NetConf> confs;
+	protected boolean backprop = false;
+
+	public NetConf getConf(int i) {
+		return confs.get(i);
+	}
+
 	@Data
 	public static class Builder {
-		protected List<LayerConf> confs = new ArrayList();
-		protected int iterations = 0;
-		protected double learningRate = 1e-1;
-		
-		public Builder confs(List<LayerConf> confs){
+		protected List<NetConf> confs = new ArrayList<>();
+		protected boolean backprop = false;
+
+		public Builder backprop(boolean backprop) {
+			this.backprop = backprop;
+			return this;
+		}
+
+		public Builder confs(List<NetConf> confs) {
 			this.confs = confs;
 			return this;
 		}
-		public Builder iterations(int iterations){
-			this.iterations = iterations;
-			return this;
-		}
-		public Builder learningRate(double learningRate){
-			this.learningRate = learningRate;
-			return this;
-		}
-		
-		
+
 		public NeuralNetConf build() {
-			// TODO Auto-generated method stub
 			NeuralNetConf conf = new NeuralNetConf();
 			conf.confs = this.confs;
-			conf.iterations = this.iterations;
-			
+			conf.backprop = backprop;
+			Nd4j.getRandom().setSeed(conf.getConf(0).getSeed());
 			return conf;
 		}
 	}

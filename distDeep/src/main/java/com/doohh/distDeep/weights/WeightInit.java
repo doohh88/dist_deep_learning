@@ -1,5 +1,6 @@
 package com.doohh.distDeep.weights;
 
 public enum WeightInit {
-	DISTRIBUTION, NORMALIZED, UNIFORM, XAVIER, RELU 
+    DISTRIBUTION,NORMALIZED,SIZE,UNIFORM,VI,ZERO,XAVIER,RELU
+
 }
