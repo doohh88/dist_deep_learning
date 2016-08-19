@@ -1,5 +1,5 @@
 package com.doohh.distDeep.nn.conf;
 
-public class BaseOutputLayerConf extends FeedforwardLayerConf {
+public class BaseOutputLayerConf extends FeedForwardLayerConf {
 	
 }

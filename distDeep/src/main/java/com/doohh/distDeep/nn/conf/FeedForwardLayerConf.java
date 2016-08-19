@@ -8,11 +8,11 @@ import lombok.ToString;
 @Data @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public abstract class FeedforwardLayerConf extends LayerConf {
+public abstract class FeedForwardLayerConf extends LayerConf {
 	protected int nIn;
 	protected int nOut;
 	
-	public FeedforwardLayerConf(Builder builder) {
+	public FeedForwardLayerConf(Builder builder) {
 		super(builder);
     	this.nIn = builder.nIn;
     	this.nOut = builder.nOut;		

@@ -9,14 +9,14 @@ import lombok.ToString;
 @Data @NoArgsConstructor
 @ToString(callSuper = true)
 @EqualsAndHashCode(callSuper = true)
-public class DenseLayerConf extends FeedforwardLayerConf {
+public class DenseLayerConf extends FeedForwardLayerConf {
 
 	public DenseLayerConf(Builder builder) {
 		super(builder);
 	}
 	
 	@AllArgsConstructor
-	public static class Builder extends FeedforwardLayerConf.Builder<Builder>{
+	public static class Builder extends FeedForwardLayerConf.Builder<Builder>{
 
 		@Override
 		public DenseLayerConf build() {

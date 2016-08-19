@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class NetConf {
+public class NetConf implements Cloneable {
 	private static final Logger log = LoggerFactory.getLogger(NetConf.class);
 
 	protected LayerConf layerConf;
@@ -24,6 +24,19 @@ public class NetConf {
 	protected long seed;
     protected boolean useDropConnect = false;
 
+    @Override
+    public NetConf clone(){
+    	// TODO Auto-generated method stub
+    	try {
+    		NetConf clone = (NetConf) super.clone();
+        	if(clone.layerConf != null) clone.layerConf.clone();
+       		return clone;	
+		} catch (CloneNotSupportedException e) {
+			// TODO: handle exception
+			throw new RuntimeException(e);
+		}
+    }
+    
 	@Data
 	public static class ListBuilder extends NeuralNetConf.Builder {
 		private Map<Integer, Builder> layerwise;

@@ -10,10 +10,28 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-public class NeuralNetConf {
+public class NeuralNetConf implements Cloneable {
 	protected List<NetConf> confs;
 	protected boolean backprop = false;
 
+	@Override
+	public Object clone() {
+		// TODO Auto-generated method stub
+		try {
+			NeuralNetConf clone = (NeuralNetConf) super.clone();
+			if(clone.confs != null){ // deep clone
+				List<NetConf> list = new ArrayList<>();
+				for(NetConf conf : clone.confs){
+					list.add(conf.clone());
+				}
+				clone.confs = list;
+			}
+			return clone;
+		} catch (CloneNotSupportedException e){
+			throw new RuntimeException(e);
+		}
+	}
+	
 	public NetConf getConf(int i) {
 		return confs.get(i);
 	}
