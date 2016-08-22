@@ -8,6 +8,7 @@ import org.nd4j.linalg.factory.Nd4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.doohh.distDeep.nn.api.OptimizationAlgorithm;
 import com.doohh.distDeep.weights.WeightInit;
 
 import lombok.Data;
@@ -23,6 +24,7 @@ public class NetConf implements Cloneable {
 	protected int numIterations;
 	protected long seed;
     protected boolean useDropConnect = false;
+    protected OptimizationAlgorithm optimizationAlgo;
 
     @Override
     public NetConf clone(){
@@ -76,6 +78,8 @@ public class NetConf implements Cloneable {
 		protected long seed = System.currentTimeMillis();
 		protected boolean useDropConnect = false;
 		protected LearningRatePolicy learningRatePolicy = LearningRatePolicy.None;
+        protected OptimizationAlgorithm optimizationAlgo = OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT;
+
 
 		public Builder miniBatch(boolean miniBatch) {
 			this.miniBatch = miniBatch;
@@ -143,6 +147,11 @@ public class NetConf implements Cloneable {
 			this.updater = updater;
 			return this;
 		}
+        
+		public Builder optimizationAlgo(OptimizationAlgorithm optimizationAlgo) {
+            this.optimizationAlgo = optimizationAlgo;
+            return this;
+        }
 
 		public NetConf build() {
 			NetConf conf = new NetConf();
@@ -151,6 +160,8 @@ public class NetConf implements Cloneable {
 			conf.seed = seed;
             conf.useDropConnect = useDropConnect;
             conf.miniBatch = miniBatch;
+            conf.optimizationAlgo = optimizationAlgo;
+
             
             if(layerConf != null ) {
                 if (Double.isNaN(layerConf.getLearningRate())) layerConf.setLearningRate(learningRate);

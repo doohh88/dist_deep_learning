@@ -2,14 +2,15 @@ package com.doohh.distDeep.nn.network;
 
 import java.util.LinkedHashMap;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dataset.DataSet;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.NDArrayIndex;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.doohh.distDeep.gradient.Gradient;
+import com.doohh.distDeep.nn.api.Classifier;
 import com.doohh.distDeep.nn.api.Layer;
 import com.doohh.distDeep.nn.conf.LayerConf;
 import com.doohh.distDeep.nn.conf.NetConf;
@@ -19,7 +20,7 @@ import com.doohh.distDeep.nn.layers.factory.LayerFactories;
 import lombok.Data;
 
 @Data
-public class NeuralNetwork implements Layer{
+public class NeuralNetwork implements Layer, Classifier{
     private static final Logger log = LoggerFactory.getLogger(NeuralNetwork.class);
     protected LayerConf[] layersConf;
     protected LinkedHashMap<String, LayerConf> layerMap = new LinkedHashMap<>();
@@ -95,54 +96,34 @@ public class NeuralNetwork implements Layer{
 			// construct multi-layer
             int paramCountSoFar = 0;
             for (int i = 0; i < nLayers; i++) {
-                INDArray paramsView;
+                INDArray paramsRef;
                 if(nParamsPerLayer[i] > 0){
-                	paramsView = flattenedParams.get(NDArrayIndex.point(0), NDArrayIndex.interval(paramCountSoFar, paramCountSoFar + nParamsPerLayer[i]));
+                	paramsRef = flattenedParams.get(NDArrayIndex.point(0), NDArrayIndex.interval(paramCountSoFar, paramCountSoFar + nParamsPerLayer[i]));
                 } else {
-                	paramsView = null;
+                	paramsRef = null;
                 }
                 paramCountSoFar += nParamsPerLayer[i];
                 NetConf conf = layerWiseConfigurations.getConf(i);
-                layersConf[i] = LayerFactories.getFactory(conf).create(conf, i, paramsView, initializeParams);
+                layersConf[i] = LayerFactories.getFactory(conf).create(conf, i, paramsRef, initializeParams);
                 layerMap.put(conf.getLayerConf().getLayerName(), layersConf[i]);
             }
             initCalled = true;
 		}
 	
 	}
-	
-	@Override
-	public INDArray activate(INDArray input, TrainingMode training) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Pair<Gradient, INDArray> backpropGradient(INDArray epsilon) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Gradient calcGradient(Gradient layerError, INDArray indArray) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public Type type() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	@Override
-	public void update(Gradient gradient) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public int getnLayers(){
-		return layerWiseConfigurations.getConfs().size();
-	}
-	
+
+    public void fit() {
+        fit(input, labels);
+    }
+    
+    public void fit(DataSet data) {
+    	fit(data.getFeatureMatrix(), data.getLabels());
+    }
+    
+    public void fit(INDArray data, INDArray labels) {
+        setInput(data);
+        setLabels(labels);
+   	
+    }
+
 }

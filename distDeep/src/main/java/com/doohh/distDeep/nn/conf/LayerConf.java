@@ -1,5 +1,6 @@
 package com.doohh.distDeep.nn.conf;
 
+import com.doohh.distDeep.distribution.Distribution;
 import com.doohh.distDeep.weights.WeightInit;
 
 import lombok.Data;
@@ -16,6 +17,7 @@ public class LayerConf implements Cloneable {
 	protected double biasLearningRate;
 	protected double dropOut;
 	protected Updater updater;
+	protected Distribution dist;
 
 	public LayerConf(Builder builder) {
 		this.layerName = builder.layerName;
@@ -25,7 +27,8 @@ public class LayerConf implements Cloneable {
 		this.learningRate = builder.learningRate;
 		this.biasLearningRate = builder.biasLearningRate;
 		this.dropOut = builder.dropOut;
-
+		this.updater = builder.updater;
+		this.dist = builder.dist;
 	}
 
 	@Override
@@ -49,6 +52,7 @@ public class LayerConf implements Cloneable {
 		protected double biasLearningRate = Double.NaN;
 		protected double dropOut = Double.NaN;
 		protected Updater updater = null;
+		protected Distribution dist = null;
 
 		public T name(String layerName) {
 			this.layerName = layerName;
@@ -87,6 +91,11 @@ public class LayerConf implements Cloneable {
 
 		public T updater(Updater updater) {
 			this.updater = updater;
+			return (T) this;
+		}
+
+		public T dist(Distribution dist) {
+			this.dist = dist;
 			return (T) this;
 		}
 

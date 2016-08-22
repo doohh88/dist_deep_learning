@@ -5,7 +5,7 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 
 import com.doohh.distDeep.gradient.Gradient;
 
-public interface Layer {
+public interface Layer extends Model {
     enum Type {
         FEED_FORWARD,RECURRENT,CONVOLUTIONAL,SUBSAMPLING,RECURSIVE,MULTILAYER,NORMALIZATION
      }
@@ -15,9 +15,4 @@ public interface Layer {
      }
      
      Type type();
-     Gradient calcGradient(Gradient layerError, INDArray indArray);
-     Pair<Gradient,INDArray> backpropGradient(INDArray epsilon);
-     void update(Gradient gradient);
-     INDArray activate(INDArray input,TrainingMode training);
-
 }

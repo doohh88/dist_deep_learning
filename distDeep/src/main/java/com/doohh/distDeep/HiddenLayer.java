@@ -1,3 +1,4 @@
+package com.doohh.distDeep;
 /*package com.doohh.distDeep.nn.layers;
 
 import java.util.Random;
